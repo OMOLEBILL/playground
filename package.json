@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test:staging": "cross-env NODE_ENV=staging npx playwright test",
-    "test:dev": "cross-env NODE_ENV=dev npx playwright test",
-    "test:prod": "cross-env NODE_ENV=prod npx playwright test"
+    "test:local": "cross-env NODE_ENV=local npx playwright test",
+    "test:prod": "cross-env NODE_ENV=production npx playwright test"
   },
   "keywords": [],
   "author": "",
