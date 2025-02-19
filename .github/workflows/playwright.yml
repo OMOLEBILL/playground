@@ -36,7 +36,7 @@ jobs:
       uses: allure-framework/setup-allurectl@v1
 
     - name: Run Playwright tests
-      run: allurectl watch -- ./gradlew clean npx playwright test
+      run: allurectl watch -- npx playwright test
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
