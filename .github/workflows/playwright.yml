@@ -61,7 +61,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           echo "Running tests with environment $ENVIRONMENT and tag '${{ github.event.inputs.tag }}'"
-          npx cross-env NODE_ENV=$ENVIRONMENT TAG=${{ github.event.inputs.tag }} npm run test:tag
+          allurectl watch -- npx cross-env NODE_ENV=$ENVIRONMENT TAG=${{ github.event.inputs.tag }} npm run test:tag
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
