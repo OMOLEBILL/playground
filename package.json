@@ -5,7 +5,8 @@
   "scripts": {
     "test:staging": "cross-env NODE_ENV=staging npx playwright test",
     "test:local": "cross-env NODE_ENV=local npx playwright test",
-    "test:prod": "cross-env NODE_ENV=production npx playwright test"
+    "test:production": "cross-env NODE_ENV=production npx playwright test",
+    "test:tag": "node tag-test.js"
   },
   "keywords": [],
   "author": "",

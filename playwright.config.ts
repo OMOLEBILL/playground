@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  * https://github.com/motdotla/dotenv
  */
 const dotenv = require('dotenv');
-const env = process.env.NODE_ENV || 'dev';
+const env = process.env.NODE_ENV || 'local';
 
 // Load the proper .env file based on NODE_ENV (dev, staging, or prod)
 dotenv.config({ path: `env/.env.${env}` });

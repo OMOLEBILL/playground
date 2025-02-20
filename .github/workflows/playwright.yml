@@ -13,9 +13,13 @@ on:
         description: ALLURE_USERNAME service parameter.
         required: false
       environment:
-        description: 'Choose the environment: dev, staging, or prod'
+        description: 'Choose the environment: local, staging, or production'
         required: false
         default: 'local'
+      tag:
+        description: 'Optional tag to filter tests. Leave empty to run all tests.'
+        required: false
+        default: ''
 
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
@@ -49,13 +53,15 @@ jobs:
       - name: Create Allure results directory
         run: mkdir -p ${{ env.ALLURE_RESULTS }}
 
-      - name: Display Environment Variable
-        run: echo "Using environment $ENVIRONMENT"
+      - name: Display Environment Variables
+        run: |
+          echo "Using environment: $ENVIRONMENT"
+          echo "Using tag: ${{ github.event.inputs.tag }}"
 
       - name: Run Playwright tests
         run: |
-          echo "Using environment $ENVIRONMENT"
-          allurectl watch -- npm run test:$ENVIRONMENT
+          echo "Running tests with environment $ENVIRONMENT and tag '${{ github.event.inputs.tag }}'"
+          npx cross-env NODE_ENV=$ENVIRONMENT TAG=${{ github.event.inputs.tag }} npm run test:tag
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
