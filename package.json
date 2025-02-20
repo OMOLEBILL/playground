@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:staging": "cross-env NODE_ENV=staging npx playwright test",
-    "test:local": "cross-env NODE_ENV=local npx playwright test",
-    "test:production": "cross-env NODE_ENV=production npx playwright test",
+    "test:staging": "cross-env NODE_ENV=staging npx playwright test --config=playwright.config.ts",
+    "test:local": "cross-env NODE_ENV=local npx playwright test --config=playwright.config.ts",
+    "test:production": "cross-env NODE_ENV=production npx playwright test --config=playwright.config.ts",
     "test:tag": "node tag-test.js"
   },
   "keywords": [],
