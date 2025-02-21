@@ -4,7 +4,7 @@ import * as allure from "allure-js-commons";
 
 test.describe('Body suites', () => {
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     await allure.suite("Body Suites");
   });
 

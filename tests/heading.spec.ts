@@ -3,7 +3,7 @@ import { Example } from '../pages/example.page';
 import * as allure from "allure-js-commons";
 
 test.describe('Heading suites', () => {
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
       await allure.suite("Heading suites");
   });
 
