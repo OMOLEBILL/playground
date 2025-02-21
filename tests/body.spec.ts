@@ -1,7 +1,13 @@
 import { test } from '@playwright/test';
 import { Example } from '../pages/example.page';
+import * as allure from "allure-js-commons";
 
 test.describe('Body suites', () => {
+
+  test.beforeAll(async () => {
+    await allure.suite("Body Suites");
+  });
+
   test('Cross-browser text is visible', { tag: '@body' }, async ({ page }) => {
     await Example.verifyCrossBrowserText(page);
   });
