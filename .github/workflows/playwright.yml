@@ -19,7 +19,7 @@ on:
         type: choice
         options:
           - local
-          - development
+          - production
           - staging
       tag:
         description: 'Optional tag to filter tests. Leave empty to run all tests.'

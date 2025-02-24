@@ -14,7 +14,7 @@ export class Example {
 
   static async verifyMainContent(page: Page) {
     await page.goto(BASE_URL);
-    await expect(page.getByRole('main')).toContainText('No tradeimits');
+    await expect(page.getByRole('main')).toContainText('No trade-offs • No limits');
   }
 
   static async hasTitle(page: Page) {
