@@ -30,3 +30,5 @@ jobs:
       tag: ${{ github.event.inputs.tag }}
       ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
       ALLURE_USERNAME: ${{github.event.inputs.ALLURE_USERNAME}}
+    secrets:
+      ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}

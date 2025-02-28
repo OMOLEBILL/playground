@@ -15,6 +15,9 @@ on:
       ALLURE_USERNAME:
         required: false
         type: string
+    secrets:
+      ALLURE_TOKEN:
+        required: true
 
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
