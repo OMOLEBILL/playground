@@ -1,17 +1,8 @@
-name: Execute playwright Tests
+name: Execute Playwright Tests
 
 on:
-  push:
-  pull_request:
-    branches: ['main', 'master', 'develop']
   workflow_dispatch:
     inputs:
-      ALLURE_JOB_RUN_ID:
-        description: ALLURE_JOB_RUN_ID service parameter.
-        required: false
-      ALLURE_USERNAME:
-        description: ALLURE_USERNAME service parameter.
-        required: false
       environment:
         description: 'Choose the environment: local, staging, or production'
         required: false
@@ -19,12 +10,15 @@ on:
         type: choice
         options:
           - local
-          - production
           - staging
+          - production
       tag:
         description: 'Optional tag to filter tests. Leave empty to run all tests.'
         required: false
         default: ''
+      ALLURE_JOB_RUN_ID:
+        description: 'ALLURE_JOB_RUN_ID service parameter'
+        required: false
 
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
