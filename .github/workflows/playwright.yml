@@ -19,6 +19,9 @@ on:
       ALLURE_JOB_RUN_ID:
         description: 'ALLURE_JOB_RUN_ID service parameter'
         required: false
+      ALLURE_USERNAME:
+        description: ALLURE_USERNAME service parameter.
+        required: false
 
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
