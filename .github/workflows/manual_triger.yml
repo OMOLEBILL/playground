@@ -1,0 +1,32 @@
+name: Trigger Playwright Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose the environment: local, staging, or production'
+        required: true
+        default: local
+        type: choice
+        options:
+          - local
+          - staging
+          - production
+      tag:
+        description: 'Optional tag to filter tests. Leave empty to run all tests.'
+        required: false
+      ALLURE_JOB_RUN_ID:
+        description: 'ALLURE_JOB_RUN_ID service parameter'
+        required: false
+      ALLURE_USERNAME:
+        description: ALLURE_USERNAME service parameter.
+        required: false
+
+jobs:
+  call-playwright-tests:
+    uses: ./.github/workflows/playwright.yml
+    with:
+      environment: ${{ github.event.inputs.environment }}
+      tag: ${{ github.event.inputs.tag }}
+      ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+      ALLURE_USERNAME: ${{github.event.inputs.ALLURE_USERNAME}}

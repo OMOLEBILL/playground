@@ -1,31 +1,22 @@
 name: Execute Playwright Tests
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       environment:
-        description: 'Choose the environment: local, staging, or production'
         required: false
-        default: 'local'
-        type: choice
-        options:
-          - local
-          - staging
-          - production
+        type: string
       tag:
-        description: 'Optional tag to filter tests. Leave empty to run all tests.'
         required: false
-        default: ''
+        type: string
       ALLURE_JOB_RUN_ID:
-        description: 'ALLURE_JOB_RUN_ID service parameter'
-        required: false
+        type: number
       ALLURE_USERNAME:
-        description: ALLURE_USERNAME service parameter.
-        required: false
+        type: string
 
 env:
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
-  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+  ALLURE_JOB_RUN_ID: ${{ inputs.ALLURE_JOB_RUN_ID }}
   ALLURE_ENDPOINT: https://demodomain.testops.cloud/
   ALLURE_PROJECT_ID: 1
   ALLURE_RESULTS: ./reports/allure
@@ -35,7 +26,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-      ENVIRONMENT: ${{ github.event.inputs.environment || 'local' }}
+      ENVIRONMENT: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,12 +49,12 @@ jobs:
       - name: Display Environment Variables
         run: |
           echo "Using environment: $ENVIRONMENT"
-          echo "Using tag: ${{ github.event.inputs.tag }}"
+          echo "Using tag: ${{ inputs.tag }}"
 
       - name: Run Playwright tests
         run: |
-          echo "Running tests with environment $ENVIRONMENT and tag '${{ github.event.inputs.tag }}'"
-          allurectl watch -- npx cross-env NODE_ENV=$ENVIRONMENT TAG=${{ github.event.inputs.tag }} npm run test:tag
+          echo "Running tests with environment $ENVIRONMENT and tag '${{ inputs.tag }}'"
+          allurectl watch -- npx cross-env NODE_ENV=$ENVIRONMENT TAG=${{ inputs.tag }} npm run test:tag
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
