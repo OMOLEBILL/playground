@@ -1,0 +1,49 @@
+name: Trigger Playwright Tests via Docker
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose the environment: local, staging, or production'
+        required: true
+        default: local
+        type: choice
+        options:
+          - local
+          - staging
+          - production
+      tag:
+        description: 'Optional tag to filter tests. Leave empty to run all tests.'
+        required: false
+      ALLURE_JOB_RUN_ID:
+        description: 'ALLURE_JOB_RUN_ID service parameter'
+        required: false
+      ALLURE_USERNAME:
+        description: 'ALLURE_USERNAME service parameter'
+        required: false
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: omlle/test:latest
+    env:
+      ENVIRONMENT: ${{ github.event.inputs.environment }}
+      TAG: ${{ github.event.inputs.tag }}
+      ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+      ALLURE_USERNAME: ${{ github.event.inputs.ALLURE_USERNAME }}
+      ALLURE_ENDPOINT: https://demodomain.testops.cloud/
+      ALLURE_PROJECT_ID: 1
+      ALLURE_RESULTS: ./reports/allure
+      ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+    steps:
+      - name: Display Environment Variables
+        run: |
+          echo "Using environment: $ENVIRONMENT"
+          echo "Using tag: $TAG"
+      - name: Run Tests with Allure Reporting
+        run: |
+          echo "Running tests with environment $ENVIRONMENT and tag '$TAG'"
+          # The container image already has allurectl installed.
+          # Use allurectl to wrap the test command.
+          allurectl watch -- npx cross-env NODE_ENV=$ENVIRONMENT TAG=$TAG npm run test:tag
