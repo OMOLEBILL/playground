@@ -27,6 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: omlle/test:latest
+    defaults:
+      run:
+        working-directory: /app
     env:
       ENVIRONMENT: ${{ github.event.inputs.environment }}
       TAG: ${{ github.event.inputs.tag }}

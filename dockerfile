@@ -24,6 +24,6 @@ COPY . .
 RUN mkdir -p $ALLURE_RESULTS
 
 # Install allurectl (adjust the version and URL as needed)
-RUN curl -L https://github.com/allure-framework/allurectl/releases/download/2.16.0/allurectl_linux_arm64 \
+RUN curl -L https://github.com/allure-framework/allurectl/releases/download/2.16.0/allurectl_linux_amd64 \
     -o /usr/local/bin/allurectl && chmod +x /usr/local/bin/allurectl
 
