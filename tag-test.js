@@ -1,4 +1,18 @@
 const { execSync } = require('child_process');
+const fs = require('fs');
+
+console.log('Current working directory:', process.cwd());
+
+// Define the path to the testplan file
+const testplanPath = './.allure/testplan.json';
+
+// Check if the testplan exists, and if so, print its contents
+if (fs.existsSync(testplanPath)) {
+  console.log('Testplan file found. Contents:');
+  console.log(fs.readFileSync(testplanPath, 'utf-8'));
+} else {
+  console.log('No testplan file found at', testplanPath);
+}
 
 // Use provided environment variable or fallback to default.
 const env = process.env.NODE_ENV || 'staging';
